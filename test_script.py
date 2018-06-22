@@ -4,6 +4,7 @@ import subprocess
 import sys
 import redis
 from time import sleep, time
+import signal
 
 def SIGINThandler(signum, frame):
 	print("Catching SIGINT!")
