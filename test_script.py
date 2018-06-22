@@ -5,6 +5,24 @@ import sys
 import redis
 from time import sleep, time
 
+def SIGINThandler(signum, frame):
+	print("Catching SIGINT!")
+	
+
+
+	print("BYE BYE!!!")
+	sys.exit()
+
+def SIGTSTPhandler(signum, frame):
+	print("Catching SIGTSTP!")
+			
+	print("BYE BYE!!!")
+	sys.exit()
+
+
+signal.signal(signal.SIGINT, SIGINThandler)
+signal.signal(signal.SIGTSTP, SIGTSTPhandler)
+
 print(sys.argv)
 
 configfile = sys.argv[1]
@@ -102,9 +120,10 @@ while(1):
 		sleep(5)
 		print("Killing")
 
-		subprocess.run(["./Redis_kill.sh", host])
+		subprocess.run(["./kill_remote.sh", "redis", host])
 		if config["ZEROMQ"]["active"]=='yes':
-			subprocess.run(["./ZeroMQ_kill.sh", host])
+			subprocess.run(["./kill_remote.sh", "redis-proxy", host])
+			subprocess.run(["./kill_remote.sh", "ZeroMQ_SHARDS", host])
 
 		break
 	

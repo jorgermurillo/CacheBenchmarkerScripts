@@ -3,7 +3,7 @@
 IP=$1
 MEMORY=$2
 R_VALUE=$3
-SETSIZE=$4+
+SETSIZE=$4
 
 
 ssh -i ~/Downloads/SHARDS.pem  centos@$IP 'cd redis-SHARDS ; nohup ./src/k_v_benchmark/ZeroMQ_SHARDS ' $MEMORY ' ' $R_VALUE '  >~/tmp/ZeroMQ_SHARDSlogfile 2>&1   &  '
