@@ -36,7 +36,7 @@ benchmarker = sys.argv[2]
 print("Starting up the Redis instances.")
 
 #The number of seconds to wait before checking if the benchmarker has stopped
-kill_check_time = int(sys.argv[2])
+kill_check_time = int(sys.argv[3])
 
 # Checking if there is an equal number of redis instances to benchmarkers
 
