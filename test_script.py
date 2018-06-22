@@ -9,19 +9,6 @@ print(sys.argv)
 
 configfile = sys.argv[1]
 
-'''
-benchmarker = sys.argv[1]
-host = sys.argv[2]
-port = sys.argv[3]
-numberOfInstances = int(sys.argv[4])
-recordcount =  sys.argv[5]
-elements_epoch = sys.argv[6]
-port_int = int(port)
-#memory = int(sys.argv[5])
-memory = 524288000# 500 mb
-'''
-
-
 
 config = configparser.ConfigParser()
 config.read(configfile)
@@ -116,6 +103,9 @@ while(1):
 		print("Killing")
 
 		subprocess.run(["./Redis_kill.sh", host])
+		if config["ZEROMQ"]["active"]=='yes':
+			subprocess.run(["./ZeroMQ_kill.sh", host])
+
 		break
 	
 	sleep(kill_check_time) # 300 seconds == 5 minutes
