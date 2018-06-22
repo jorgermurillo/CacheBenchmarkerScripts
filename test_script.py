@@ -67,7 +67,11 @@ for key in config["INSTANCES"]:
 port_int = int(port)
 
 
-
+if config["ZEROMQ"]["active"]=='yes':
+	epoch_length = int(config["ZEROMQ"]["epoch_length"])
+	r_value = float(config["ZEROMQ"]["r_value"])
+	s = subprocess.check_output(['./Proxy.sh',  host,  str(epoch_length), str(r_value)]).decode('utf-8') 
+	print(s)
 
 
 sleep(1)
