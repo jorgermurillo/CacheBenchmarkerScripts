@@ -9,14 +9,21 @@ import signal
 def SIGINThandler(signum, frame):
 	print("Catching SIGINT!")
 	
+	print("Killing")
+	subprocess.run(["./kill_local.sh", "redis"])
+	subprocess.run(["./kill_remote.sh", "redis", host])
+	if Resizer_bool:
+		subprocess.run(["./kill_remote.sh", "redis-proxy", host])
+		subprocess.run(["./kill_remote.sh", "ZeroMQ_SHARDS", host])
 
+		
 
 	print("BYE BYE!!!")
 	sys.exit()
 
 def SIGTSTPhandler(signum, frame):
 	print("Catching SIGTSTP!")
-			
+				
 	print("BYE BYE!!!")
 	sys.exit()
 
@@ -28,13 +35,15 @@ print(sys.argv)
 
 configfile = sys.argv[1]
 
-
+Resizer_bool = False
 config = configparser.ConfigParser()
 config.read(configfile)
 
 host = config["TARGET"]["host"]
 port = config["TARGET"]["port"]
 port_int = int(port)
+Resizer_bool = config["ZEROMQ"].getboolean("active")
+print(Resizer_bool)
 print(host)
 print(port)
 
@@ -122,7 +131,7 @@ while(1):
 		print("Killing")
 
 		subprocess.run(["./kill_remote.sh", "redis", host])
-		if config["ZEROMQ"]["active"]=='yes':
+		if Resizer_bool:
 			subprocess.run(["./kill_remote.sh", "redis-proxy", host])
 			subprocess.run(["./kill_remote.sh", "ZeroMQ_SHARDS", host])
 
