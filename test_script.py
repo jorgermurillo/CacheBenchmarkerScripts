@@ -10,7 +10,7 @@ def SIGINThandler(signum, frame):
 	print("Catching SIGINT!")
 	
 	print("Killing")
-	subprocess.run(["./kill_local.sh", "redis"])
+	subprocess.run(["./kill_local.sh", "kv-replay"])
 	subprocess.run(["./kill_remote.sh", "redis", host])
 	if Resizer_bool:
 		subprocess.run(["./kill_remote.sh", "redis-proxy", host])
@@ -85,7 +85,7 @@ port_int = int(port)
 if config["ZEROMQ"]["active"]=='yes':
 	epoch_length = int(config["ZEROMQ"]["epoch_length"])
 	r_value = float(config["ZEROMQ"]["r_value"])
-	s = subprocess.check_output(['./Proxy.sh',  host,  str(epoch_length), str(r_value)]).decode('utf-8') 
+	s = subprocess.check_output(['./Proxy.sh', host,  str(epoch_length), str(r_value)]).decode('utf-8') 
 	print(s)
 
 
