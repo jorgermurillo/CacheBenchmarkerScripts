@@ -6,7 +6,7 @@
 TARGET=$1
 HOST=$2
 
-echo "Killing the redis-proxy Process"
+echo "Killing \"$TARGET"\"" remotely"
 ssh -i ~/Downloads/SHARDS.pem centos@$HOST  'kill $(pgrep -f '$TARGET') '
 
 
