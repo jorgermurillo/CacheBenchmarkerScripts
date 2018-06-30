@@ -53,8 +53,10 @@ print("Starting up the Redis instances.")
 #The number of seconds to wait before checking if the benchmarker has stopped
 kill_check_time = int(sys.argv[3])
 
-# Checking if there is an equal number of redis instances to benchmarkers
+#Time when benchmarkers should start. Format: "2016-01-01 00:00:00:000"
+start_time = sys.argv[4]
 
+# Checking if there is an equal number of redis instances to benchmarkers
 numberOfRedis = len(config["INSTANCES"])
 numberOfBenchmarkers = len(config["BENCHMARKERS"])
 
@@ -109,7 +111,7 @@ elif benchmarker=='kv-replay':
 		directory = '/KV-replay%d'%(i)
 		print("Instance of %s with port %d running. Record count = %s"%(directory, port_int, recordcount))
 		#print(str(subprocess.check_output(['./Redis_run.sh', benchmarker, host, str(port_int), str(i), directory, recordcount])))
-		s = subprocess.check_output(['./Benchmarker_run.sh', benchmarker, host, str(port_int), str(i), directory, str(recordcount)]).decode('utf-8')
+		s = subprocess.check_output(['./Benchmarker_run.sh', benchmarker, host, str(port_int), str(i), directory, str(recordcount), start_time]).decode('utf-8')
 		print(s)
 		
 		port_int+=1
