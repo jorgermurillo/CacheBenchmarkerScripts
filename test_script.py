@@ -46,9 +46,11 @@ Resizer_bool = config["ZEROMQ"].getboolean("active")
 print(Resizer_bool)
 print(host)
 print(port)
-
 benchmarker = sys.argv[2]
 print("Starting up the Redis instances.")
+
+#WORKLOAD
+workload_file = config["WORKLOAD"]["workload_file"]
 
 #The number of seconds to wait before checking if the benchmarker has stopped
 kill_check_time = int(sys.argv[3])
@@ -93,7 +95,6 @@ if config["ZEROMQ"]["active"]=='yes':
 
 sleep(1)
 print("Starting the benchmarker instances: %s"%(benchmarker))
-
 if benchmarker=='ycsb':
 
 	for i in range(1,numberOfInstances+1):
@@ -111,7 +112,7 @@ elif benchmarker=='kv-replay':
 		directory = '/KV-replay%d'%(i)
 		print("Instance of %s with port %d running. Record count = %s"%(directory, port_int, recordcount))
 		#print(str(subprocess.check_output(['./Redis_run.sh', benchmarker, host, str(port_int), str(i), directory, recordcount])))
-		s = subprocess.check_output(['./Benchmarker_run.sh', benchmarker, host, str(port_int), str(i), directory, str(recordcount), start_time]).decode('utf-8')
+		s = subprocess.check_output(['./Benchmarker_run.sh', benchmarker, host, str(port_int), str(i), directory, str(recordcount), start_time, workload_file]).decode('utf-8')
 		print(s)
 		
 		port_int+=1

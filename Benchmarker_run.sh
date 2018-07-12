@@ -7,12 +7,13 @@ INSTANCE=$4
 DIRECTORY=$5
 RECORDCOUNT=$6
 START=$7
+WORKLOAD=$8
 #echo $BENCHMARK
 
 cd ~/$DIRECTORY 
 pwd
 
 echo $INSTANCE
-nohup  ./bin/$BENCHMARK run redis -P workloads/workload-replayScheduler_Resizing -p "redis.host=$HOST" -p "redis.port=$PORT" -p startdatetime="$START" -p operationcount=$RECORDCOUNT  </dev/null > ~/tmp/redis_test/benchfile$INSTANCE 2>&1  &  
+nohup  ./bin/$BENCHMARK run redis -P $WORKLOAD -p "redis.host=$HOST" -p "redis.port=$PORT" -p startdatetime="$START" -p operationcount=$RECORDCOUNT  </dev/null > ~/tmp/redis_test/benchfile$INSTANCE 2>&1  &  
 
 
