@@ -12,12 +12,12 @@ def SIGINThandler(signum, frame):
 	print("Killing")
 	s2 = subprocess.check_output(["./kill_local.sh", "kv-replay"]).decode('utf-8')
 	print(s2)
-	s2 = subprocess.run(["./kill_remote.sh", "redis", host]).decode('utf-8')
+	s2 = subprocess.check_output(["./kill_remote.sh", "redis", host]).decode('utf-8')
 	print(s2)
 	if Resizer_bool:
-		s2 = subprocess.run(["./kill_remote.sh", "redis-proxy", host]).decode('utf-8')
+		s2 = subprocess.check_output(["./kill_remote.sh", "redis-proxy", host]).decode('utf-8')
 		print(s2)
-		s2 = subprocess.run(["./kill_remote.sh", "ZeroMQ_SHARDS", host]).decode('utf-8')
+		s2 = subprocess.check_output(["./kill_remote.sh", "ZeroMQ_SHARDS", host]).decode('utf-8')
 		print(s2)
 		
 
