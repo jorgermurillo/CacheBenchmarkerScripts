@@ -22,6 +22,7 @@ def SIGINThandler(signum, frame):
 		
 
 	print("BYE BYE!!!")
+	sleep(60)
 	sys.exit()
 
 def SIGTSTPhandler(signum, frame):
