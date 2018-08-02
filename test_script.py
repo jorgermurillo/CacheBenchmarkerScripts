@@ -70,12 +70,15 @@ if numberOfRedis != numberOfBenchmarkers:
 	print("The number of Redis instances (%d) does not match the number of benchmarker instances (%d)!"%(numberOfRedis, numberOfBenchmarkers))
 	exit() 
 
+total_memory = 0
+
 i = 1
 for key in config["INSTANCES"]:
 	#print(subprocess.run(['nohup','./Redis-Shards/src/redis-server', '--port', str(port_int), ' </dev/null > /tmp/mylogfile 2>&1  &  ' ]))
 	memory = config["INSTANCES"][key]
-	#print(memory)
-
+	#memory_tmp is used to extract the number of bytes (memory is given as XXmb)
+	memory_tmp = memory.split("m")[0]
+	total_memory += int(memory_tmp)
 
 	subproc = subprocess.run(['./Redis_init.sh', str(port_int), memory, str(host), str(i) ]   , stdout=subprocess.PIPE)
 	s = subproc.stdout.decode('utf-8')
@@ -90,9 +93,12 @@ port_int = int(port)
 
 
 if config["ZEROMQ"]["active"]=='yes':
+	# convert memory to bytes
+	total_memory = total_memory * 1024 * 1024 
+	setsize = int(config["ZeroMQ"]["setsize"])
 	epoch_length = int(config["ZEROMQ"]["epoch_length"])
 	r_value = float(config["ZEROMQ"]["r_value"])
-	s = subprocess.check_output(['./Proxy.sh', host,  str(epoch_length), str(r_value)]).decode('utf-8') 
+	s = subprocess.check_output(['./Proxy.sh', host,  str(epoch_length), str(r_value),str(setsize),str(total_memory)]).decode('utf-8') 
 	print(s)
 
 
