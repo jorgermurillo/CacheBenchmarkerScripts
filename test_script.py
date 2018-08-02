@@ -95,7 +95,7 @@ port_int = int(port)
 if config["ZEROMQ"]["active"]=='yes':
 	# convert memory to bytes
 	total_memory = total_memory * 1024 * 1024 
-	setsize = int(config["ZeroMQ"]["setsize"])
+	setsize = int(config["ZEROMQ"]["setsize"])
 	epoch_length = int(config["ZEROMQ"]["epoch_length"])
 	r_value = float(config["ZEROMQ"]["r_value"])
 	s = subprocess.check_output(['./Proxy.sh', host,  str(epoch_length), str(r_value),str(setsize),str(total_memory)]).decode('utf-8') 
