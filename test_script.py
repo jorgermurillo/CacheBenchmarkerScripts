@@ -49,7 +49,7 @@ Resizer_bool = config["ZEROMQ"].getboolean("active")
 print(Resizer_bool)
 print(host)
 print(port)
-benchmarker = config["BENCHMARKERS"]["type"]
+benchmarker = "kv-replay"
 print("Starting up the Redis instances.")
 
 #WORKLOAD
