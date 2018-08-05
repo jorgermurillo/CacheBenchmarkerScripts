@@ -49,17 +49,17 @@ Resizer_bool = config["ZEROMQ"].getboolean("active")
 print(Resizer_bool)
 print(host)
 print(port)
-benchmarker = sys.argv[2]
+benchmarker = config["BENCHMARKERS"]["type"]
 print("Starting up the Redis instances.")
 
 #WORKLOAD
 workload_file = config["WORKLOAD"]["workload_file"]
 
 #The number of seconds to wait before checking if the benchmarker has stopped
-kill_check_time = int(sys.argv[3])
+kill_check_time = int(sys.argv[2])
 
 #Time when benchmarkers should start. Format: "2016-01-01 00:00:00:000"
-start_time = sys.argv[4]
+start_time = sys.argv[3]
 
 # Checking if there is an equal number of redis instances to benchmarkers
 numberOfRedis = len(config["INSTANCES"])
