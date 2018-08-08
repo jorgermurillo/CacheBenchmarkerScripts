@@ -110,7 +110,8 @@ while(current_runs < total_runs):
 		print(s)
 
 		#Save the output to a file called test_script.out
-		filename = "%s/run_%05d/%s"%(exp,current_runs,"test_script.out")
+		subdirectory = counters[exp]["results_subdirectory"]
+		filename = "%s/run_%05d/%s"%(subdirectory,current_runs,"test_script.out")
 		outputfile = open(filename,"w")
 		outputfile.write(s)
 		outputfile.close()
