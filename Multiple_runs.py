@@ -109,3 +109,8 @@ while(current_runs < total_runs):
 		counters[exp]["counter"] = counters[exp]["counter"] +1
 		print(s)
 
+		#Save the output to a file called test_script.out
+		filename = "%s/%s"%(exp,"test_script.out")
+		outputfile = open(filename,"w")
+		outputfile.write(s)
+		outputfile.close()
