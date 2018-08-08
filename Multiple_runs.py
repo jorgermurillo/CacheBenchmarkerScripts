@@ -118,3 +118,13 @@ while(current_runs < total_runs):
 		outputfile = open(filename,"w")
 		outputfile.write(s)
 		outputfile.close()
+
+		#Reading the config file of the actual experiment to see how many redis instances were run
+		config2 = configparser.ConfigParser()
+		config2.read(exp)
+		instances = len( config2["INSTANCES"] )
+		IP = config2["TARGET"]["host"]
+
+		# Run script that downloads and copies the appropiate info to the respective subdirectory
+		subproc = subprocess.run(['./Move_files.sh', instances,  IP, subdirectory ]   , stdout=subprocess.PIPE)
+		s = subproc.stdout.decode('utf-8')
