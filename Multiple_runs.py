@@ -106,12 +106,15 @@ while(current_runs < total_runs):
 		# Increase current runs counter by one after succesfully running the experiment	
 		current_runs+=1
 		# Increasse the counter in 
-		counters[exp]["counter"] = counters[exp]["counter"] +1
+		tmp_count = counters[exp]["counter"]
+		tmp_count+=1
+		counters[exp]["counter"] = tmp_count
+
 		print(s)
 
 		#Save the output to a file called test_script.out
-		subdirectory = counters[exp]["results_subdirectory"]
-		filename = "%s/run_%05d/%s"%(subdirectory,current_runs,"test_script.out")
+		subdirectory = counters[exp]["results_subdirectory"] + "/run_%05d/"%(tmp_count)
+		filename = "%s%s"%(subdirectory,"test_script.out")
 		outputfile = open(filename,"w")
 		outputfile.write(s)
 		outputfile.close()
