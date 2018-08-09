@@ -84,7 +84,7 @@ print(counters)
 
 total_runs = len(config_files_paths) * experiment_runs
 current_runs = 0
-
+print("Starting tests...\n\n")
 while(current_runs < total_runs):
 	# Pick a possible experiment to run
 	experiment_index = randint(0, len(config_files_paths)-1)
