@@ -126,5 +126,6 @@ while(current_runs < total_runs):
 		IP = config2["TARGET"]["host"]
 
 		# Run script that downloads and copies the appropiate info to the respective subdirectory
-		subproc = subprocess.run(['./Move_files.sh', instances,  IP, subdirectory ]   , stdout=subprocess.PIPE)
+		subproc = subprocess.run(['./Move_files.sh', str(instances),  IP, subdirectory ]   , stdout=subprocess.PIPE)
 		s = subproc.stdout.decode('utf-8')
+
