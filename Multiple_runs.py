@@ -122,7 +122,7 @@ while(current_runs < total_runs):
 		IP = config2["TARGET"]["host"]
 		ZEROMQ = config2["ZEROMQ"]["active"]
 
-		if ZEROMQ=="yes"
+		if ZEROMQ=="yes":
 			# Run script that downloads and copies the appropiate info to the respective subdirectory
 			subproc = subprocess.run(['./Move_files.sh', str(instances),  IP, subdirectory ,"ZEROMQ"]   , stdout=subprocess.PIPE)
 			s = subproc.stdout.decode('utf-8')
