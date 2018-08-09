@@ -77,6 +77,7 @@ i=0
 for e in config_files_paths:
 	tmp = {}
 	tmp["results_subdirectory"] = subdirectories[i]
+	i+=1
 	tmp["counter"] = 0 
 	counters[e] = tmp
 print("Counters:")
