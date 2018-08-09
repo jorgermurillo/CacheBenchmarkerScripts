@@ -4,10 +4,13 @@
 NUMBER=$1
 IP=$2
 DOWNLOAD_PATH=$3
+TYPE=$4
 
-
-ssh -i ~/Downloads/SHARDS.pem  centos@$IP 'tar -vczf ZeroMQ_Results.tar.gz  ~/redis-SHARDS/ZeroMQ_Results ~/tmp/ZeroMQ_SHARDSlogfile'
-
+if[$TYPE="ZEROMQ"]
+then
+	echo "ZEROMQ"
+	ssh -i ~/Downloads/SHARDS.pem  centos@$IP 'tar -vczf ZeroMQ_Results.tar.gz  ~/redis-SHARDS/ZeroMQ_Results ~/tmp/ZeroMQ_SHARDSlogfile'
+fi
 scp -i ~/Downloads/SHARDS.pem  centos@$IP:/home/centos/ZeroMQ_Results.tar.gz $DOWNLOAD_PATH
 
 

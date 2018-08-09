@@ -3,6 +3,7 @@ import configparser
 import subprocess
 import sys
 import redis
+from datetime import datetime, timedelta
 from time import sleep, time
 import signal
 
@@ -56,8 +57,8 @@ workload_file = config["WORKLOAD"]["workload_file"]
 #The number of seconds to wait before checking if the benchmarker has stopped
 kill_check_time = int(sys.argv[2])
 
-#Time when benchmarkers should start. Format: "2016-01-01 00:00:00:000"
-start_time = sys.argv[3]
+#Time in minutes to wait before starting. Format: "2016-01-01 00:00:00:000"
+wait_time = int(sys.argv[3])
 
 # Checking if there is an equal number of redis instances to benchmarkers
 numberOfRedis = len(config["INSTANCES"])
@@ -118,7 +119,8 @@ elif benchmarker=='kv-replay':
 		recordcount = config["BENCHMARKERS"][key]
 		directory = '/KV-replay%d'%(i)
 		print("Instance of %s with port %d running. Record count = %s"%(directory, port_int, recordcount))
-		#print(str(subprocess.check_output(['./Redis_run.sh', benchmarker, host, str(port_int), str(i), directory, recordcount])))
+		wait_time_delta = timedelta(minutes=wait_time)
+		start_time = "'"+str(datetime.now() + wait_time_delta)+"'"
 		s = subprocess.check_output(['./Benchmarker_run.sh', benchmarker, host, str(port_int), str(i), directory, str(recordcount), start_time, workload_file]).decode('utf-8')
 		print(s)
 		

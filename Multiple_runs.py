@@ -91,17 +91,13 @@ while(current_runs < total_runs):
 	# Check if any more of that experiment should run
 	exp = config_files_paths[experiment_index]
 	if(counters[exp]["counter"]<experiment_runs):
-		# Create timedelta so that the benchmarkers starts at a later time
-		wait = timedelta(minutes=start_wait)
-		# Get time to start experiment
-		start_time = datetime.now() + wait# SHould actually not be now
 		# Run experiment
 		#print(exp)
 		#print(check_interval)
 		#print(datetime.now())
 		#print(start_time)
 		print("\n\n")
-		subproc = subprocess.run(['./test_script.py', exp,  check_interval, str(start_time) ]   , stdout=subprocess.PIPE)
+		subproc = subprocess.run(['./test_script.py', exp,  check_interval, str(start_wait) ]   , stdout=subprocess.PIPE)
 		s = subproc.stdout.decode('utf-8')
 		# Increase current runs counter by one after succesfully running the experiment	
 		current_runs+=1
@@ -124,8 +120,14 @@ while(current_runs < total_runs):
 		config2.read(exp)
 		instances = len( config2["INSTANCES"] )
 		IP = config2["TARGET"]["host"]
+		ZEROMQ = config2["ZEROMQ"]["active"]
 
-		# Run script that downloads and copies the appropiate info to the respective subdirectory
-		subproc = subprocess.run(['./Move_files.sh', str(instances),  IP, subdirectory ]   , stdout=subprocess.PIPE)
-		s = subproc.stdout.decode('utf-8')
+		if ZEROMQ=="yes"
+			# Run script that downloads and copies the appropiate info to the respective subdirectory
+			subproc = subprocess.run(['./Move_files.sh', str(instances),  IP, subdirectory ,"ZEROMQ"]   , stdout=subprocess.PIPE)
+			s = subproc.stdout.decode('utf-8')
+		else:
+			# Run script that downloads and copies the appropiate info to the respective subdirectory
+			subproc = subprocess.run(['./Move_files.sh', str(instances),  IP, subdirectory ,"NORMAL"]   , stdout=subprocess.PIPE)
+			s = subproc.stdout.decode('utf-8')
 
