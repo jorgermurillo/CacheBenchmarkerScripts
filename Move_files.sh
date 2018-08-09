@@ -6,7 +6,7 @@ IP=$2
 DOWNLOAD_PATH=$3
 TYPE=$4
 
-if[$TYPE="ZEROMQ"]
+if[$TYPE = "ZEROMQ"]
 then
 	echo "ZEROMQ"
 	ssh -i ~/Downloads/SHARDS.pem  centos@$IP 'tar -vczf ZeroMQ_Results.tar.gz  ~/redis-SHARDS/ZeroMQ_Results ~/tmp/ZeroMQ_SHARDSlogfile'

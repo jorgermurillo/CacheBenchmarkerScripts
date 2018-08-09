@@ -96,7 +96,7 @@ while(current_runs < total_runs):
 		#print(check_interval)
 		#print(datetime.now())
 		#print(start_time)
-		print("\n\n")
+		print("Runnning experiment number %d: %s"%(current_runs+1, exp))
 		subproc = subprocess.run(['./test_script.py', exp,  check_interval, str(start_wait) ]   , stdout=subprocess.PIPE)
 		s = subproc.stdout.decode('utf-8')
 		# Increase current runs counter by one after succesfully running the experiment	
@@ -106,7 +106,7 @@ while(current_runs < total_runs):
 		tmp_count+=1
 		counters[exp]["counter"] = tmp_count
 
-		print(s)
+		#print(s)
 
 		#Save the output to a file called test_script.out
 		subdirectory = counters[exp]["results_subdirectory"] + "/run_%05d/"%(tmp_count)
@@ -130,4 +130,7 @@ while(current_runs < total_runs):
 			# Run script that downloads and copies the appropiate info to the respective subdirectory
 			subproc = subprocess.run(['./Move_files.sh', str(instances),  IP, subdirectory ,"NORMAL"]   , stdout=subprocess.PIPE)
 			s = subproc.stdout.decode('utf-8')
+		print("Done with experiment number %d"%(current_runs))
+		print("\n\n")
 
+print("DONE!!")
