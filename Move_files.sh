@@ -19,5 +19,5 @@ fi
 for (( I=1; I<=$NUMBER; I++ ))
 do  
 	tail -n 3500 ~/tmp/redis_test/benchfile$I  >  $DOWNLOAD_PATH/benchresults$I
-	cp ~/tmp/redis_test/benchfile$I  $DOWNLOAD_PATH
+	cp ~/tmp/redis_test/benchresults$I  $DOWNLOAD_PATH
 done
