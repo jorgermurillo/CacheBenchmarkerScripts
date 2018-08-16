@@ -138,7 +138,7 @@ while(1):
 	x = int(subprocess.check_output(["./CheckBenchmarker.sh", benchmarker]))
 	print("Number of Processes: " + str(x))
 	
-	if(x<=2): 
+	if(x<=1): 
 		sleep(5)
 		print("Killing")
 
